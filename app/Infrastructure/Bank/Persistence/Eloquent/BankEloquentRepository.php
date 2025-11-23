@@ -41,11 +41,11 @@ class BankEloquentRepository implements BankRepository
 
     public function update(int $id, array $data): Bank
     {
-        $customer = $this->model->findOrFail($id);
+        $bank = $this->model->findOrFail($id);
 
-        $customer->update($data);
+        $bank->update($data);
 
-        return $customer;
+        return $bank;
     }
 
     public function delete(int $id): void

@@ -78,13 +78,6 @@ class BankController extends Controller
             ->with('success', 'Banco criado com sucesso.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

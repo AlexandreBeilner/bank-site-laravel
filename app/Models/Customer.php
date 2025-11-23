@@ -24,4 +24,9 @@ class Customer extends Model
     {
         return $this->hasMany(Billet::class);
     }
+
+    public function billings(): HasMany
+    {
+        return $this->hasMany(BillingService::class);
+    }
 }

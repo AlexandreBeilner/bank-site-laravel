@@ -43,11 +43,11 @@ class BilletEloquentRepository implements BilletRepository
 
     public function update(int $id, array $data): Billet
     {
-        $customer = $this->model->findOrFail($id);
+        $billet = $this->model->findOrFail($id);
 
-        $customer->update($data);
+        $billet->update($data);
 
-        return $customer;
+        return $billet;
     }
 
     public function delete(int $id): void
