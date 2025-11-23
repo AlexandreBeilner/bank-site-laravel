@@ -2,9 +2,8 @@
 
 namespace App\Application\Bank\UseCases\ShowBank;
 
-final class ShowBankRequest
+use App\Application\Shared\DTOs\IdDTO;
+
+final class ShowBankRequest extends IdDTO
 {
-    public function __construct(
-        public int $id
-    ){}
 }

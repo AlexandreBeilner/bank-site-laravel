@@ -2,13 +2,8 @@
 
 namespace App\Application\Bank\UseCases\ListBanks;
 
-final class ListBanksRequest
+use App\Application\Shared\DTOs\ListDTO;
+
+final class ListBanksRequest extends ListDTO
 {
-    public function __construct(
-        public ?string $search = null,
-        public int $page,
-        public int $perPage,
-        public string $orderBy,
-        public string $direction
-    ){}
 }

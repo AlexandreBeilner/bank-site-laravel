@@ -2,7 +2,7 @@
     'action',
     'method' => 'POST',
     'bank' => null,
-    'submitLabel' => 'Save',
+    'submitLabel' => 'Salvar',
 ])
 
 <form method="POST" action="{{ $action }}" class="space-y-4 max-w-xl">

@@ -23,6 +23,7 @@ class UpdateBankRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:255', 'unique:banks,code,' . $id],
+            'interest_rate' => ['required', 'numeric', 'between:0,99.999999'],
         ];
     }
 }

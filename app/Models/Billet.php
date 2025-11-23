@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Billet extends Model
 {
     /** @use HasFactory<\Database\Factories\BilletFactory> */
     use HasFactory;
-
+    use SoftDeletes;
 
     protected $fillable = [
         'payer_name',
@@ -28,6 +29,8 @@ class Billet extends Model
         'expiration_date' => 'date',
         'amount' => 'decimal:2',
     ];
+
+    protected $dates = ['deleted_at'];
 
     public function customer(): BelongsTo
     {

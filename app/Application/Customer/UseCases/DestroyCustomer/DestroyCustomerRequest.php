@@ -2,9 +2,8 @@
 
 namespace App\Application\Customer\UseCases\DestroyCustomer;
 
-final class DestroyCustomerRequest
+use App\Application\Shared\DTOs\IdDTO;
+
+final class DestroyCustomerRequest extends IdDTO
 {
-    public function __construct(
-        public int $id
-    ) {}
 }

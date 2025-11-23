@@ -2,9 +2,8 @@
 
 namespace App\Application\Bank\UseCases\DestroyBank;
 
-final class DestroyBankRequest
+use App\Application\Shared\DTOs\IdDTO;
+
+final class DestroyBankRequest extends IdDTO
 {
-    public function __construct(
-        public int $id
-    ) {}
 }

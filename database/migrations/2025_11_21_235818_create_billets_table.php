@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreignId('customer_id')->constrained()->restrictOnDelete();
             $table->foreignId('bank_id')->constrained()->restrictOnDelete();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

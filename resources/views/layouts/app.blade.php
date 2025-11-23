@@ -32,6 +32,14 @@
                         : 'text-slate-300 hover:bg-orange-500 hover:text-black' }}">
                 <span>Bancos</span>
             </a>
+
+            <a href="{{ route('billets.index') }}"
+               class="flex items-center px-3 py-2 rounded-md font-medium
+                    {{ request()->routeIs('billets.*')
+                        ? 'bg-orange-500 text-black'
+                        : 'text-slate-300 hover:bg-orange-500 hover:text-black' }}">
+                <span>Boletos</span>
+            </a>
         </nav>
     </aside>
 

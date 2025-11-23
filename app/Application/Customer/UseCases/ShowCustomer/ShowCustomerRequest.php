@@ -2,9 +2,8 @@
 
 namespace App\Application\Customer\UseCases\ShowCustomer;
 
-final class ShowCustomerRequest
+use App\Application\Shared\DTOs\IdDTO;
+
+final class ShowCustomerRequest extends IdDTO
 {
-    public function __construct(
-        public int $id
-    ){}
 }

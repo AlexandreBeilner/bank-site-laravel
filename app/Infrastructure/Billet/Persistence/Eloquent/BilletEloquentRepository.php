@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Infrastructure\Bank\Persistence\Eloquent;
+namespace App\Infrastructure\Billet\Persistence\Eloquent;
 
-use App\Domain\Bank\Repositories\BankRepository;
-use App\Models\Bank;
+use App\Domain\Billet\Repositories\BilletRepository;
+use App\Models\Billet;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class BankEloquentRepository implements BankRepository
+class BilletEloquentRepository implements BilletRepository
 {
     public function __construct(
-        private Bank $model
+        private Billet $model
     ) {}
 
 
@@ -19,9 +19,11 @@ class BankEloquentRepository implements BankRepository
 
         if ($search) {
             $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('code', 'like', "%{$search}%")
-                  ->orWhere('interest_rate', 'like', "%{$search}%");
+                $q->where('payer_name', 'like', "%{$search}%")
+                  ->orWhere('payer_document', 'like', "%{$search}%")
+                  ->orWhere('recipient_name', 'like', "%{$search}%")
+                  ->orWhere('recipient_document', 'like', "%{$search}%")
+                  ->orWhere('amount', 'like', "%{$search}%");
             });
         }
 
@@ -29,17 +31,17 @@ class BankEloquentRepository implements BankRepository
                      ->paginate($perPage, ['*'], 'page', $page);
     }
 
-    public function findById(int $id): ?Bank
+    public function findById(int $id): ?Billet
     {
         return $this->model->find($id);
     }
 
-    public function create(array $data): Bank
+    public function create(array $data): Billet
     {
         return $this->model->create($data);
     }
 
-    public function update(int $id, array $data): Bank
+    public function update(int $id, array $data): Billet
     {
         $customer = $this->model->findOrFail($id);
 
@@ -51,10 +53,5 @@ class BankEloquentRepository implements BankRepository
     public function delete(int $id): void
     {
         $this->model->whereKey($id)->delete();
-    }
-
-    public function findByIdWithBilletCount(int $id): ?Bank
-    {
-        return $this->model->withCount('billets')->find($id);
     }
 }
