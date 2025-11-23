@@ -24,13 +24,21 @@
                         : 'text-slate-300 hover:bg-orange-500 hover:text-black' }}">
                 <span>Clientes</span>
             </a>
+
+            <a href="{{ route('banks.index') }}"
+               class="flex items-center px-3 py-2 rounded-md font-medium
+                    {{ request()->routeIs('banks.*')
+                        ? 'bg-orange-500 text-black'
+                        : 'text-slate-300 hover:bg-orange-500 hover:text-black' }}">
+                <span>Bancos</span>
+            </a>
         </nav>
     </aside>
 
     <main class="flex-1 flex flex-col">
         <header class="h-16 bg-slate-950/90 border-b border-slate-800 flex items-center px-6">
             <h1 class="text-xl font-semibold text-orange-400">
-                @yield('page_title', 'Dashboard')
+                @yield('page_title', 'Inicio')
             </h1>
         </header>
 

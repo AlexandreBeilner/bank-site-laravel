@@ -2,7 +2,7 @@
 
 namespace App\Application\Customer\Exceptions;
 
-class CustomerHasInvoicesException extends \Exception
+class CustomerHasBilletsException extends \Exception
 {
 
 }

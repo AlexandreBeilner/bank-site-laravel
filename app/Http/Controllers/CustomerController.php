@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Application\Customer\Exceptions\CustomerHasInvoicesException;
+use App\Application\Customer\Exceptions\CustomerHasBilletsException;
 use App\Application\Customer\Exceptions\CustomerNotFoundException;
 use App\Application\Customer\UseCases\CreateCustomer\CreateCustomerHandler;
 use App\Application\Customer\UseCases\CreateCustomer\CreateCustomerRequest;
@@ -88,11 +88,17 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): Factory|View
+    public function edit(string $id): RedirectResponse|View
     {
-        $customer = $this->showCustomerHandler->handle(new ShowCustomerRequest($id))->customer;
+        try {
+            $customer = $this->showCustomerHandler->handle(new ShowCustomerRequest($id))->customer;
 
-        return view('customers.edit', compact('customer'));
+            return view('customers.edit', compact('customer'));
+        } catch (CustomerNotFoundException $e) {
+            return redirect()
+                ->route('customers.index')
+                ->with('error', 'Cliente não encontrado.');
+        }
     }
 
     /**
@@ -130,7 +136,7 @@ class CustomerController extends Controller
             return redirect()
                 ->route('customers.index')
                 ->with('error', 'Cliente não encontrado.');
-        } catch (CustomerHasInvoicesException $e) {
+        } catch (CustomerHasBilletsException $e) {
             return redirect()
                 ->route('customers.index')
                 ->with('error', 'Não é possível excluir o cliente, pois existem boletos vinculados.');
