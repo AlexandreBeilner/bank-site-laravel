@@ -20,8 +20,8 @@ return new class extends Migration
             $table->decimal('amount', 15, 2);
             $table->date('expiration_date');
             $table->string('observations')->nullable();
-            $table->foreignId('customer_id')->constrained();
-            $table->foreignId('bank_id')->constrained();
+            $table->foreignId('customer_id')->constrained()->restrictOnDelete();
+            $table->foreignId('bank_id')->constrained()->restrictOnDelete();
             $table->timestamps();
         });
     }

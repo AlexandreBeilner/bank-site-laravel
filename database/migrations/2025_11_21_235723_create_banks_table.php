@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->decimal('interest_rate', 8, 6);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
