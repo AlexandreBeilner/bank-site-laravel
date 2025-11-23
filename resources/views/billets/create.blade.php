@@ -14,6 +14,8 @@
             'method' => 'POST',
             'billet' => null,
             'submitLabel' => 'Criar',
+            'customers' => $customers,
+            'banks' => $banks,
         ])
     </div>
 @endsection

@@ -20,9 +20,9 @@ class BilletFactory extends Factory
     {
         return [
             'payer_name'         => $this->faker->name(),
-            'payer_document'     => $this->faker->numerify('###########'),
+            'payer_document'     => $this->faker->numerify('###.###.###-##'),
             'recipient_name'     => $this->faker->company(),
-            'recipient_document' => $this->faker->numerify('###########'),
+            'recipient_document' => $this->faker->numerify('###.###.###-##'),
             'amount'             => $this->faker->randomFloat(2, 10, 10000),
             'expiration_date'    => $this->faker->dateTimeBetween('now', '+1 year'),
             'observations'       => $this->faker->optional()->sentence(),

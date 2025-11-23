@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Application\Bank\UseCases\ListBanks\ListBanksHandler;
+use App\Application\Bank\UseCases\ListBanks\ListBanksRequest;
 use App\Application\Billet\Exceptions\BilletNotFoundException;
 use App\Application\Billet\UseCases\CreateBillet\CreateBilletHandler;
 use App\Application\Billet\UseCases\CreateBillet\CreateBilletRequest;
@@ -13,6 +15,8 @@ use App\Application\Billet\UseCases\ShowBillet\ShowBilletHandler;
 use App\Application\Billet\UseCases\ShowBillet\ShowBilletRequest;
 use App\Application\Billet\UseCases\UpdateBillet\UpdateBilletHandler;
 use App\Application\Billet\UseCases\UpdateBillet\UpdateBilletRequest;
+use App\Application\Customer\UseCases\ListCustomers\ListCustomersHandler;
+use App\Application\Customer\UseCases\ListCustomers\ListCustomersRequest;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -28,6 +32,8 @@ class BilletController extends Controller
         private readonly CreateBilletHandler $createBilletHandler,
         private readonly UpdateBilletHandler $updateBilletHandler,
         private readonly DestroyBilletHandler $destroyBilletHandler,
+        private readonly ListCustomersHandler $listCustomersHandler,
+        private readonly ListBanksHandler $listBanksHandler,
     ) {}
 
     /**
@@ -56,7 +62,30 @@ class BilletController extends Controller
      */
     public function create(): Factory|View
     {
-        return view('billets.create');
+        $customersResponse = $this->listCustomersHandler->handle(
+            new ListCustomersRequest(
+                search: null,
+                page: 1,
+                perPage: 1000,
+                orderBy: 'name',
+                direction: 'asc',
+            )
+        );
+
+        $banksResponse = $this->listBanksHandler->handle(
+            new ListBanksRequest(
+                search: null,
+                page: 1,
+                perPage: 1000,
+                orderBy: 'name',
+                direction: 'asc',
+            )
+        );
+
+        return view('billets.create', [
+            'customers' => $customersResponse->paginator->items(),
+            'banks' => $banksResponse->paginator->items(),
+        ]);
     }
 
     /**
@@ -97,9 +126,35 @@ class BilletController extends Controller
     public function edit(string $id): RedirectResponse|View
     {
         try {
-            $billet = $this->showBilletHandler->handle(new ShowBilletRequest($id))->billet;
+            $billet = $this->showBilletHandler
+                ->handle(new ShowBilletRequest($id))
+                ->billet;
 
-            return view('billets.edit', compact('billet'));
+            $customersResponse = $this->listCustomersHandler->handle(
+                new ListCustomersRequest(
+                    search: null,
+                    page: 1,
+                    perPage: 1000,
+                    orderBy: 'name',
+                    direction: 'asc',
+                )
+            );
+
+            $banksResponse = $this->listBanksHandler->handle(
+                new ListBanksRequest(
+                    search: null,
+                    page: 1,
+                    perPage: 1000,
+                    orderBy: 'name',
+                    direction: 'asc',
+                )
+            );
+
+            return view('billets.edit', [
+                'billet'    => $billet,
+                'customers' => $customersResponse->paginator->items(),
+                'banks'     => $banksResponse->paginator->items(),
+            ]);
         } catch (BilletNotFoundException $e) {
             return redirect()
                 ->route('billets.index')

@@ -14,6 +14,8 @@
             'method' => 'PUT',
             'billet' => $billet,
             'submitLabel' => 'Salvar',
+            'customers' => $customers,
+            'banks' => $banks,
         ])
     </div>
 @endsection

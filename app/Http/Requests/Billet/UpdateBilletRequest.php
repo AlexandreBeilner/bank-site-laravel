@@ -27,7 +27,7 @@ class UpdateBilletRequest extends FormRequest
             'recipient_document' => ['required', 'cpf_ou_cnpj'],
             'amount' => ['required', 'numeric', 'between:0.00,9999999999999.99'],
             'expiration_date' => ['required', 'date'],
-            'observations' => ['required', 'string', 'max:255'],
+            'observations' => ['max:255'],
             'customer_id' => [
                 'required',
                 'integer',
