@@ -17,10 +17,9 @@ return new class extends Migration
             $table->unsignedInteger('number');
             $table->decimal('amount', 15, 2);
             $table->date('due_date');
-
             $table->timestamp('email_sent_at')->nullable();
-
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

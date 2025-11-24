@@ -16,8 +16,6 @@ class SendBillingInstallmentsMailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $queue = 'emails';
-
     public function handle(
         BillingInstallmentRepository $billingInstallmentRepository,
         BillingServiceRepository $billingServiceRepository,
